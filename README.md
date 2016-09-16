@@ -1,4 +1,6 @@
 # Mailtorrent
+v. 1.0
+
 Utility to control a transmission-daemon instance remotely, by sending emails to an email address.
 
 It is possibile to:
@@ -26,10 +28,10 @@ Config file:
 The script is tested with python 2.7 and a GMail address.  
 It runs on OS X and debian-based linux. It should work also on others linux flavours and on Windows, but I have not tested it.
 
-The launch the script:
+To launch the script:
 
 `$ python mailtorrent.py /path/to/config/file`
 
 It is useful to put it in the crontab and run it every 15 minutes or such.
 
-Probably this is useful just to me, because my stupid router does not allow me to reach the pc with transmission-daemon I have at home from outside (NAT does not work correctly for some reasons).
+Probably this is useful just to me, because my stupid router does not allow me to reach the pc with transmission-daemon I have at home from the outside (NAT does not work correctly for some reasons).

@@ -4,6 +4,7 @@ v. 1.0
 Utility to control a transmission-daemon instance remotely, by sending emails to an email address.
 
 It is possibile to:
+
 * add new torrents, sending magnet links or torrent files links
   * "torrent" in the subject of the email and the links in the body
 * receive the status of the downloads
@@ -27,6 +28,10 @@ Config file:
 
 The script is tested with python 2.7 and a GMail address.  
 It runs on OS X and debian-based linux. It should work also on others linux flavours and on Windows, but I have not tested it.
+
+Dependecies:  
+
+* requests - http://docs.python-requests.org/en/latest/#
 
 To launch the script:
 

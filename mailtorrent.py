@@ -1,6 +1,5 @@
 import sys
 import imaplib
-import getpass
 import email
 import datetime
 import re

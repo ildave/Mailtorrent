@@ -28,8 +28,8 @@ def download_file(url, num):
 				f.write(chunk)
 				f.flush()
 
-def getStatus():
-	cmd = [TRANSMISSION_REMOTE_PATH, '-l']
+def getStatus(username, password):
+	cmd = [TRANSMISSION_REMOTE_PATH, '-l', "--auth", "{0}:{1}".format(username, password)]
 	p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
 	output = ""
 	for line in p.stdout:
@@ -50,8 +50,8 @@ def sendMail(status):
 	content = headers + "\r\n\r\n" + status
 	session.sendmail(EMAIL, DESTINATION_EMAIL, content)
 
-def startAll():
-	cmd = [TRANSMISSION_REMOTE_PATH, "-tall", "--start"]
+def startAll(username, password):
+	cmd = [TRANSMISSION_REMOTE_PATH, "-tall", "--start", "--auth", "{0}:{1}".format(username, password)]
 	p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
 	output = ""
 	for line in p.stdout:
@@ -59,8 +59,8 @@ def startAll():
 	p.wait()
 	return output
 
-def addMagnet(magnet):
-	cmd = [TRANSMISSION_REMOTE_PATH, '--add', magnet]
+def addMagnet(magnet, username, password):
+	cmd = [TRANSMISSION_REMOTE_PATH, '--add', magnet, "--auth", "{0}:{1}".format(username, password)]
 	p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
 	output = ""
 	for line in p.stdout:
@@ -86,6 +86,8 @@ DESTINATION_EMAIL = config.get("Config", "destination_email")
 SMTP_SERVER = config.get("Config", "smtp_server")
 SMTP_PORT = config.get("Config", "smtp_port")
 IMAP_SERVER = config.get("Config", "imap_server")
+TRANSMISSION_USERNAME = config.get("Config", "transmission_username")
+TRANSMISSION_PASSWORD = config.get("Config", "transmission_password")
 
 dataora = datetime.now() 
 print dataora.strftime('%d/%m/%Y %H:%M:%S')
@@ -126,14 +128,14 @@ if rv == "OK":
 						if magnetResults:
 							for magnet in magnetResults:
 								print "Adding magnet " + magnet
-								addMagnet(magnet)
+								addMagnet(magnet, TRANSMISSION_USERNAME, TRANSMISSION_PASSWORD)
 			elif DESTINATION_EMAIL in headers['From'] and "status" in headers['Subject'].lower():
 				print "Sending status"
-				status = getStatus()
+				status = getStatus(TRANSMISSION_USERNAME, TRANSMISSION_PASSWORD)
 				sendMail(status)
 			elif DESTINATION_EMAIL in headers['From'] and "start" in headers['Subject'].lower():
 				print "Start all torrents"
-				output = startAll()
+				output = startAll(TRANSMISSION_USERNAME, TRANSMISSION_PASSWORD)
 				print output
 
 conn.logout()

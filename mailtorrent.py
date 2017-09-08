@@ -29,7 +29,7 @@ def download_file(url, num):
 				f.flush()
 
 def getStatus(username, password):
-	cmd = [TRANSMISSION_REMOTE_PATH, '-l', "--auth", "{0}:{1}".format(username, password)]
+	cmd = [TRANSMISSION_REMOTE_PATH, "--auth", "{0}:{1}".format(username, password), '-l']
 	p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
 	output = ""
 	for line in p.stdout:
@@ -51,7 +51,7 @@ def sendMail(status):
 	session.sendmail(EMAIL, DESTINATION_EMAIL, content)
 
 def startAll(username, password):
-	cmd = [TRANSMISSION_REMOTE_PATH, "-tall", "--start", "--auth", "{0}:{1}".format(username, password)]
+	cmd = [TRANSMISSION_REMOTE_PATH, "--auth", "{0}:{1}".format(username, password), "-tall", "--start"]
 	p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
 	output = ""
 	for line in p.stdout:
@@ -60,7 +60,7 @@ def startAll(username, password):
 	return output
 
 def addMagnet(magnet, username, password):
-	cmd = [TRANSMISSION_REMOTE_PATH, '--add', magnet, "--auth", "{0}:{1}".format(username, password)]
+	cmd = [TRANSMISSION_REMOTE_PATH, "--auth", "{0}:{1}".format(username, password), '--add', magnet]
 	p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
 	output = ""
 	for line in p.stdout:

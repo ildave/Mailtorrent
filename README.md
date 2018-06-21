@@ -27,6 +27,12 @@ Config file:
     imap_server= #address of imap server of the script email  
     transmission_username= #transmission-daemon username
     transmission_password= #transmission-password username
+    
+Values for GMail:
+
+    smtp_server=smtp.gmail.com
+    smtp_port=587
+    imap_server=imap.gmail.com
 
 The script is tested with python 2.7 and a GMail address.  
 It runs on OS X and debian-based linux. It should work also on others linux flavours and on Windows, but I have not tested it.
